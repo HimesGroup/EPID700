@@ -2,7 +2,7 @@
 
 This repository contains standard GitHub repository documents as a sample for you to consider. For practice, you will make a copy of this repository (i.e. fork it and clone it to your computer), make some modifications, and then "save" those modifications (i.e. push them to GitHub and create a pull request back at this repository). Follow these instructions:
 
-1. To start, [**fork** this EPID700 repository][forking].
+1. To start, [**fork**][forking] this EPID700 repository.
 1. [**Clone**][ref-clone] the forked repository to your computer.
 1. Modify the files provided, add your own, and [**commit**][ref-commit] changes to complete your final project.
 1. [**Push**][ref-push]/sync the changes up to your GitHub account.
