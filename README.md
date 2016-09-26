@@ -1,10 +1,10 @@
 # EPID700 
 
-This repository contains standard GitHub repository documents as a sample for you to consider. For practice, you will make a copy of this repository (i.e. fork it and clone it to your computer), make some modifications, and then "save" those modifications (i.e. push them to GitHub and create a pull request back at this repository). Here are some step-by-step instructions:
+This repository contains two documents as a sample repository for you to consider. Make a copy of this repository (i.e. fork it and clone it to your computer), open it as a project in RStudio on your computer locally, go through the EPID700.Rmd file and make changes, and "save" those modifications locally and remotely (i.e. push them to GitHub and create a pull request back at this repository). Here are some step-by-step instructions:
 
 1. To start, [**fork**][forking] this EPID700 repository.
-1. [**Clone**][ref-clone] the forked repository to your computer.
-1. Modify the files provided, add your own, and [**commit**][ref-commit] changes.
+1. [**Clone**][ref-clone] the forked repository to your computer directly in RStudio.
+1. Modify the Rmd file provided and [**commit**][ref-commit] changes.
 1. [**Push**][ref-push]/sync the changes up to your GitHub account.
 1. Create a [**pull request**][pull-request] on this, the original EPID700, repository before the class ends on 9/27/16.
 
