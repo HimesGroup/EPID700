@@ -5,6 +5,8 @@ output: html_document
 ---
 ***
 
+##### testing 
+
 This file has R commands that are often used to analyze epidemiology data. They are by no means comprehensive, but if you are new to R, they are a good set to get started. Run parts of them individually on your own computer, and add code where requested. When you are done with your edits, use the `Knit HTML` button above to make an html version of this file. When you are done, select the `Git` tab in the right upper panel, use the `pull` command to make sure any remote changes are saved locally, then `stage` the changed files you would like to move to GitHub, select `Commit` with a message about these changes, and then `push` the changes to your GitHub repository. To finish the assignment, remember to make a pull request on the original EPID700 repository from your own copy on GitHub.
 
 
