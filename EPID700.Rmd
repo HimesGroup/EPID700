@@ -5,55 +5,50 @@ output: html_document
 ---
 ***
 
-#### Load and Describe Data
-We will use an NHANES file . Refer to its [data dictionary](https://github.com/HimesGroup/EPID600_2016/blob/master/DataFiles/NHANES_2007to2008_DataDictionary.md) to understand its contents. We will use the [`dplyr()`](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) package, a relatively new package by Hadley Wickham of RStudio that facilitates managing of data frames, to modify the file after loading. Install `dplyr` using `install.packages("dplyr")` if you need to. 
+This file has R commands that are often used to analyze epidemiology data. They are by no means comprehensive, but if you are new to R, they are a good set to get started. Run parts of them individually on your own computer, and add code where requested. When you are done with your edits, use the `Knit HTML` button above to make an html version of this file. When you are done, select the `Git` tab in the right upper panel, use the `pull` command to make sure any remote changes are saved locally, then `stage` the changed files you would like to move to GitHub, select `Commit` with a message about these changes, and then `push` the changes to your GitHub repository. To finish the assignment, remember to make a pull request on the original EPID700 repository from your own copy on GitHub.
+
+
+### Load and Describe Data
+We will use an abbreviated [NHANES](http://www.cdc.gov/nchs/nhanes/) file that is saved in a [GitHub repository](https://raw.githubusercontent.com/HimesGroup/EPID600_2016/master/DataFiles/NHANES_2007to2008.csv). You may want to refer to its [data dictionary](https://github.com/HimesGroup/EPID600_2016/blob/master/DataFiles/NHANES_2007to2008_DataDictionary.md) to understand its contents. We will use the [`dplyr()`](https://cran.rstudio.com/web/packages/dplyr/vignettes/introduction.html) package, a relatively new package by Hadley Wickham of RStudio that facilitates managing of data frames, to modify the file after loading. Install `dplyr` using `install.packages("dplyr")` if you need to. 
+
 
 ```{r, eval=TRUE, message=FALSE}
 library(dplyr)
 nhanes <- read.csv(url("https://raw.githubusercontent.com/HimesGroup/EPID600_2016/master/DataFiles/NHANES_2007to2008.csv"), header=TRUE)
 nhanes <- rename(nhanes, id=SEQN, gender=RIAGENDR, age=RIDAGEYR, race=RIDRETH1, education=DMDEDUC2, income=INDHHIN2, health.provider=HUQ040, wheezing=RDQ070, asthma=MCQ010, voc=WTSVOC2Y, fvc=SPXNFVC, fev1=SPXNFEV1) #Renaming columns
-str(nhanes)
-nhanes <- mutate(nhanes, asthma=ifelse(asthma %in% c(7,9), NA, ifelse(asthma==2, 0, 1))) #Changing definition of asthma so that sums of variable are equal to number of cases by setting cases==1, controls==0, else NA
+nhanes <- mutate(nhanes, asthma = factor(asthma, levels=c(1, 2), labels=c("asthma", "non-asthma"))) 
 nhanes <- mutate(nhanes, gender = factor(gender, levels=c(1, 2), labels=c("male", "female")))
-income.dis <- nhanes %>%
-                filter(income %in% c(1:10, 14, 15)) %>%
-                mutate(income.short = cut(income, breaks=c(0, 5, 10, 15), labels=c("<$25K", "$25-75K", ">$75K"))) %>%
-                count(gender, income.short)
-income.dis
-head(nhanes)
+str(nhanes)
 ```
 
-To get a sense of the distribution of a categorical variable, barcharts are helpful.
+Plots are helpful as part of exploratory analyses to get a sense of the distribution of variables. Here are plots of gender and age distributions of this dataset:
 ```{r, eval=TRUE}
 barplot(table(nhanes$gender))
-barplot(table(nhanes$race))
-```
-
-To get a sense of the distribution of a continuous variable, histograms are helpful.
-```{r, eval=TRUE}
 hist(nhanes$age)
 ```
 
-#### Create Data File
+> Insert a code chunk here to (1) make a table of gender counts by asthma status and (2) create a barplot of how gender is distributed by asthma status
+
+
+### Simple Regression
 
 Here we will generate random data for a few probability distributions. For normally distributed variables, we can use `rnorm`, which generates variates according to the Normal distribution given a mean and standard deviation. For binary outcome variables, we can use `rbinom`, which generates variates according to the binomial distribution given _n_ independent experiments with success probability _p_. We will use `set.seed()` to ensure that the same numbers are generated for a call.
 
 ```{r, eval=TRUE}
 set.seed(1234)
-x.normal <- rnorm(1000)
-e <- rnorm(1000, 0, 2)
-y.normal <- 0.5 + 2*x.normal + e
+x.normal <- rnorm(1000) #A normally distributed variable
+e <- rnorm(1000, 0, 2) #Give fluctuations to a distribution with a fake error term
+y.normal <- 0.5 + 2*x.normal + e #A linear outcome variable that is dependent on x.normal
+summary(x.normal)
 summary(y.normal)
 plot(x.normal, y.normal)
-```
 
-If x were a binary outcome variable, like gender, we could simulate it using `rbinom`, which corresponds to the binomial distribution.
-```{r, eval=TRUE}
-x.binomial <- rbinom(1000, 1, 0.5)
-y.binomial <- 10 + 3*x.binomial + e
+x.binomial <- rbinom(1000, 1, 0.5) #A binomially distributed variable
+y.binomial <- 10 + 3*x.binomial + e #An outcome variable that is dependent on x.normal
+summary(x.binomial)
 summary(y.binomial)
 boxplot(y.binomial ~ x.binomial)
 ```
 
-#### Analyze and Plot Data
+> Insert a code chunk here to model the relationship between (1) x.normal and y.normal and (2) x.binomial and y.binomial using the `lm` function, and display the output using `summary`. Use `?lm` if you are not familiar with this function.
 
