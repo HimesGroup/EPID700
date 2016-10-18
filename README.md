@@ -6,7 +6,7 @@ This repository contains two documents as a sample repository for you to conside
 1. [**Clone**][ref-clone] the forked repository to your computer directly in RStudio.
 1. Modify the Rmd file provided and [**commit**][ref-commit] changes.
 1. [**Push**][ref-push]/sync the changes up to your GitHub account.
-1. Create a [**pull request**][pull-request] on this, the original EPID700, repository before the class ends on 9/27/16.
+1. Create a [**pull request**][pull-request] on this, the original EPID700, repository before the class ends on 10/18/16.
 
 
 
